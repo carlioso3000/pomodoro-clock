@@ -1,15 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { playTimer, pauseTimer, restartTimer, setTimer, resetSessionTimer, resetBreakTimer } from '../../redux/actions/actions';
+import { playTimer, pauseTimer, restartTimer, setTimer, resetSessionTimer, resetBreakTimer, toggleBreakTime } from '../../redux/actions/actions';
 import Button from '../button/button.jsx';
+import alarmSound from '../../assets/alarm/alarm.wav';
+import { LuAlarmClock, LuAlarmClockOff } from "react-icons/lu";
+import '../../styles/timer.css'
+
 
 const Timer = () => {
   const timeLeft = useSelector(state => state.time.timeLeft);
   const isRunning = useSelector(state => state.time.isRunning);
+  const isBreakTime = useSelector(state => state.time.isBreakTime); // Obtén el valor de isBreakTime desde el store
   const isBreak = useSelector(state => state.breakTime.isBreak);
   const sessionTime = useSelector(state => state.sessionTime.sessionTime);
   const breakTime = useSelector(state => state.breakTime.breakTime);
   const dispatch = useDispatch();
+  const [isSoundOn, setIsSoundOn] = useState(true);
 
   useEffect(() => {
     if (isRunning && timeLeft > 0) {
@@ -19,9 +25,19 @@ const Timer = () => {
       return () => clearInterval(interval);
     } else if (isRunning && timeLeft === 0) {
       dispatch(setTimer(isBreak ? sessionTime : breakTime));
-      dispatch({ type: 'TOGGLE_BREAK' });
+      //dispatch({ type: 'TOGGLE_BREAK' });
+      dispatch({ type: 'TOGGLE_BREAK_TIME' }); // Despacha la acción TOGGLE_BREAK_TIME cuando cambie el modo
     }
   }, [isRunning, timeLeft, isBreak, sessionTime, breakTime, dispatch]);
+
+  useEffect(() => {
+    if (timeLeft === 0 && isSoundOn) {
+      const beep = document.getElementById('beep');
+      beep.play();
+      beep.volume = 0.2;
+    }
+  }, [timeLeft, isSoundOn]);
+  
 
   const handlePlay = () => dispatch(playTimer());
   const handlePause = () => dispatch(pauseTimer());
@@ -38,10 +54,13 @@ const Timer = () => {
     const seconds = time % 60;
     return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
   };
-
+  // Usa una expresión ternaria para mostrar diferentes textos
+  const label = !isRunning ? 'Timer' : isBreakTime ? 'Break has begun' : 'Session has begun';
   return (
-    <div>
-      <h2 id='timer-label'>Timer</h2>
+    <div className='timer'>
+      <div className='timer-title'>
+        <h2 id='timer-label'>{label}</h2>
+        </div>
       <div className="display" id='time-left'>{formatTime(timeLeft)}</div>
       <Button
         id={'start_stop'}
@@ -55,6 +74,10 @@ const Timer = () => {
         text='Reset'
         isResetButton={true}
       />
+      <audio id='beep' src={alarmSound}/>
+      <button onClick={() => setIsSoundOn(!isSoundOn)}>
+        {isSoundOn ? <LuAlarmClock /> : <LuAlarmClockOff />}
+      </button>
     </div>
   );
 };

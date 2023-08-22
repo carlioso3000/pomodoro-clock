@@ -38,3 +38,7 @@ export const setTimer = (time) => ({
   type: 'SET_TIMER',
   value: time
 });
+
+export const toggleBreakTime = () => ({
+  type: 'TOGGLE_BREAK_TIME'
+});

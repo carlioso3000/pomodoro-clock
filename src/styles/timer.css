@@ -1,0 +1,9 @@
+.timer {
+  width: 100%;
+  height: 100vh;
+}
+.timer-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

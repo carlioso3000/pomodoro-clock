@@ -1,6 +1,7 @@
 const initialState = {
   isRunning: false,
-  timeLeft: 25 * 60
+  timeLeft: 25 * 60,
+  isBreakTime: false
 };
 
 const timerReducer = (state = initialState, action) => {
@@ -30,7 +31,12 @@ const timerReducer = (state = initialState, action) => {
       return {
         ...state,
         timeLeft: action.value
-      }
+      };
+    case 'TOGGLE_BREAK_TIME':
+      return {
+        ...state,
+        isBreakTime: !state.isBreakTime
+      };
     default:
       return state;
   }
