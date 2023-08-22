@@ -6,9 +6,13 @@ import SessionTime from './components/sessionManager/sessionManager';
 function App() {
   return (
     <div className="App">
-      <Timer/>
-      <SessionTime/>
-      <BreakTime/>
+      <div className='sidebar'>
+        <SessionTime/>
+        <BreakTime/>
+      </div>
+      <div className='main'>
+        <Timer/>
+      </div>
     </div>
   );
 }

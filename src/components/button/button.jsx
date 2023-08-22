@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   incrementBreakTime,
   decrementBreakTime,
@@ -8,7 +8,8 @@ import {
   pauseTimer,
   restartTimer,
   resetBreakTimer,
-  resetSessionTimer
+  resetSessionTimer,
+  setTimer
 } from '../../redux/actions/actions';
 
 function Button({
@@ -22,19 +23,22 @@ function Button({
   isPlayButton,
   isResetButton}) 
   {
+    const sessionTime = useSelector(state => state.sessionTime.sessionTime);
   const dispatch = useDispatch();
   const handleClick = () => {
     if (isBreakTimeButton) {
       if(isIncrementButton) {
         dispatch(incrementBreakTime());
       } else {
-        dispatch(decrementBreakTime());
+        dispatch(decrementBreakTime());;
       }
     } else if (isSessionTimeButton) {
         if(isIncrementButton) {
           dispatch(incrementSessionTime());
+          dispatch(setTimer(sessionTime + 60));
         } else {
           dispatch(decrementSessionTime());
+          dispatch(setTimer(sessionTime - 60));
         }
     } else if ( isPlayRestartButton){
       if(isPlayPauseButton) {

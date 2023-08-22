@@ -2,13 +2,26 @@
   font-family:'digital-7';
   src: url('../src/assets/digital-7.ttf');
 }
-/* body {
+body {
+  font-family: 'digital-7';
+  font-size: xx-large;
   background-color: black;
   color: red;
-  font-family: 'digital-7';
-  font-size: 150px;
-} */
+}
 .App {
   display: flex;
+}
+.sidebar {
+  padding: 0 20px 0 20px;
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
+  height: 100vh;
+  border-right: 1px solid rgb(126, 95, 95);
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
