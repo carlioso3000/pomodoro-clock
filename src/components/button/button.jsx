@@ -14,6 +14,7 @@ import {
 
 function Button({
   text,
+  className,
   id,
   isBreakTimeButton, 
   isSessionTimeButton, 
@@ -58,7 +59,7 @@ function Button({
   }
 
   return(
-    <button onClick={handleClick} id={id}>{text}</button>
+    <button onClick={handleClick} className={className} id={id}>{text}</button>
   )
 }
 

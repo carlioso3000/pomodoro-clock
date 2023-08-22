@@ -57,27 +57,35 @@ const Timer = () => {
   // Usa una expresión ternaria para mostrar diferentes textos
   const label = !isRunning ? 'Timer' : isBreakTime ? 'Break has begun' : 'Session has begun';
   return (
+    
     <div className='timer'>
+      <button className='sound-button' onClick={() => setIsSoundOn(!isSoundOn)}>
+        {isSoundOn ? <LuAlarmClock className='sound-icon' /> : <LuAlarmClockOff className='sound-icon' />}
+      </button>
       <div className='timer-title'>
         <h2 id='timer-label'>{label}</h2>
         </div>
-      <div className="display" id='time-left'>{formatTime(timeLeft)}</div>
-      <Button
-        id={'start_stop'}
-        text={isRunning ? 'Pause' : 'Play'}
-        isPlayRestartButton={true}
-        isPlayPauseButton={true}
-        isPlayButton={!isRunning}
-      />
-      <Button 
-        id={'reset'}
-        text='Reset'
-        isResetButton={true}
-      />
+      <div className='button-container'>
+        <Button
+          className={'button-50'}
+          id={'start_stop'}
+          text={isRunning ? 'Pause' : 'Play'}
+          isPlayRestartButton={true}
+          isPlayPauseButton={true}
+          isPlayButton={!isRunning}
+        />
+        <Button
+          className={'button-50'}
+          id={'reset'}
+          text='Reset'
+          isResetButton={true}
+        />
+      </div>
+      <div className="display" id='time-left'>
+        {formatTime(timeLeft)}
+      </div>
+      
       <audio id='beep' src={alarmSound}/>
-      <button onClick={() => setIsSoundOn(!isSoundOn)}>
-        {isSoundOn ? <LuAlarmClock /> : <LuAlarmClockOff />}
-      </button>
     </div>
   );
 };

@@ -1,0 +1,19 @@
+.display-manager-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.display-manager-container h2 {
+  text-align: center;
+}
+.display-manager-button-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-top: 10px;
+}
+#break-length, #session-length {
+  font-size: 50px;
+}
