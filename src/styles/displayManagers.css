@@ -17,3 +17,10 @@
 #break-length, #session-length {
   font-size: 50px;
 }
+
+@media (max-width: 600px) {
+  .display-manager-button-container{
+    justify-content: center;
+    margin: auto;
+  }
+}

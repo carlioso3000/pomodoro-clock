@@ -24,3 +24,11 @@ body {
   align-items: center;
   width: 100%;
 }
+
+@media (max-width: 600px) {
+  .main {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
